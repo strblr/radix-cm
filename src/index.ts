@@ -65,16 +65,19 @@ export function useContextMenu(
   const open = useContext(ContextMenuContext);
   const getNode = useEffectEvent(() => node);
 
-  return useCallback((event: ReactMouseEvent) => {
-    event.preventDefault();
-    const { clientX, clientY } = event;
-    let node = getNode();
-    if (typeof node === "function") {
-      const rect = event.currentTarget.getBoundingClientRect();
-      const x = clientX - rect.left;
-      const y = clientY - rect.top;
-      node = node(x, y, event);
-    }
-    open(clientX, clientY, node);
-  }, []);
+  return useCallback(
+    (event: ReactMouseEvent) => {
+      event.preventDefault();
+      const { clientX, clientY } = event;
+      let node = getNode();
+      if (typeof node === "function") {
+        const rect = event.currentTarget.getBoundingClientRect();
+        const x = clientX - rect.left;
+        const y = clientY - rect.top;
+        node = node(x, y, event);
+      }
+      open(clientX, clientY, node);
+    },
+    [open]
+  );
 }
