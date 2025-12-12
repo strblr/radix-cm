@@ -1,0 +1,44 @@
+{
+  "name": "radix-cm",
+  "version": "1.0.0",
+  "description": "Radix UI context menus anywhere without wrapping components",
+  "type": "module",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    }
+  },
+  "keywords": [
+    "react",
+    "radix",
+    "context",
+    "menu",
+    "dropdown",
+    "canvas"
+  ],
+  "author": "strblr",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/strblr/radix-cm"
+  },
+  "homepage": "https://github.com/strblr/radix-cm",
+  "bugs": "https://github.com/strblr/radix-cm/issues",
+  "scripts": {
+    "build": "tsc",
+    "prepublishOnly": "bun run build"
+  },
+  "devDependencies": {
+    "@types/bun": "latest",
+    "@types/react": "^19.2.7",
+    "prettier": "^3.7.4",
+    "typescript": "^5.9.3"
+  },
+  "peerDependencies": {
+    "@radix-ui/react-context-menu": "^2.2",
+    "react": "^19"
+  }
+}
