@@ -5,14 +5,14 @@ import {
   useRef,
   useState,
   useContext,
-  useEffectEvent,
   type ReactNode,
   type MouseEvent as ReactMouseEvent
 } from "react";
 import * as ContextMenu from "@radix-ui/react-context-menu";
+import { useEvent } from "./use-event";
 
 const ContextMenuContext = createContext<
-  (x: number, y: number, content: ReactNode) => void
+  (clientX: number, clientY: number, content: ReactNode) => void
 >(() => {});
 
 export interface ContextMenuProviderProps {
@@ -29,16 +29,15 @@ export function ContextMenuProvider({
   const triggerRef = useRef<HTMLDivElement>(null);
   const [content, setContent] = useState<ReactNode>(null);
 
-  const open = useCallback((x: number, y: number, content: ReactNode) => {
-    setContent(content);
-    triggerRef.current?.dispatchEvent(
-      new MouseEvent("contextmenu", {
-        bubbles: true,
-        clientX: x,
-        clientY: y
-      })
-    );
-  }, []);
+  const open = useCallback(
+    (clientX: number, clientY: number, content: ReactNode) => {
+      setContent(content);
+      triggerRef.current?.dispatchEvent(
+        new MouseEvent("contextmenu", { bubbles: true, clientX, clientY })
+      );
+    },
+    []
+  );
 
   return createElement(
     ContextMenuContext.Provider,
@@ -58,26 +57,17 @@ export function ContextMenuProvider({
 }
 
 export function useContextMenu(
-  node:
-    | ReactNode
-    | ((x: number, y: number, event: ReactMouseEvent) => ReactNode)
+  factory: (x: number, y: number, event: ReactMouseEvent) => ReactNode
 ) {
   const open = useContext(ContextMenuContext);
-  const getNode = useEffectEvent(() => node);
 
-  return useCallback(
-    (event: ReactMouseEvent) => {
-      event.preventDefault();
-      const { clientX, clientY } = event;
-      let node = getNode();
-      if (typeof node === "function") {
-        const rect = event.currentTarget.getBoundingClientRect();
-        const x = clientX - rect.left;
-        const y = clientY - rect.top;
-        node = node(x, y, event);
-      }
-      open(clientX, clientY, node);
-    },
-    [open]
-  );
+  return useEvent((event: ReactMouseEvent) => {
+    event.preventDefault();
+    const { clientX, clientY } = event;
+    const rect = event.currentTarget.getBoundingClientRect();
+    const x = clientX - rect.left;
+    const y = clientY - rect.top;
+    const node = factory(x, y, event);
+    open(clientX, clientY, node);
+  });
 }

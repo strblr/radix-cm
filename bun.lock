@@ -10,7 +10,7 @@
         "typescript": "^5.9.3",
       },
       "peerDependencies": {
-        "@radix-ui/react-context-menu": "^2.2",
+        "@radix-ui/react-context-menu": "^2",
         "react": "^19",
       },
     },
