@@ -8,6 +8,15 @@ A lightweight React library that enables opening Radix UI context menus with two
 
 2. **Canvas and dynamic context menus** - Open custom context menus based on exactly where the pointer hit, enabling Radix context menus for canvas elements.
 
+## Table of Contents
+
+- [Installation](#installation)
+- [Setup](#setup)
+- [Using the Hook](#using-the-hook)
+- [Canvas Context Menus](#canvas-context-menus)
+- [Using shadcn](#using-shadcn)
+- [API Reference](#api-reference)
+
 ## Installation
 
 ```bash
