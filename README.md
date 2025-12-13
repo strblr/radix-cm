@@ -168,9 +168,9 @@ function MyComponent() {
 The provider component that sets up the context menu system.
 
 ```tsx
-interface ContextMenuProviderProps {
-  root?: typeof ContextMenu.Root; // Defaults to Radix Root
-  trigger?: typeof ContextMenu.Trigger; // Defaults to Radix Trigger
+export interface ContextMenuProviderProps {
+  root?: ComponentType<ComponentProps<typeof ContextMenu.Root>>; // Defaults to Radix Root
+  trigger?: ComponentType<ComponentProps<typeof ContextMenu.Trigger>>; // Defaults to Radix Trigger
   children?: ReactNode;
 }
 ```

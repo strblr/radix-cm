@@ -5,6 +5,8 @@ import {
   useRef,
   useState,
   useContext,
+  type ComponentType,
+  type ComponentProps,
   type ReactNode,
   type MouseEvent as ReactMouseEvent
 } from "react";
@@ -16,8 +18,8 @@ const ContextMenuContext = createContext<
 >(() => {});
 
 export interface ContextMenuProviderProps {
-  root?: typeof ContextMenu.Root;
-  trigger?: typeof ContextMenu.Trigger;
+  root?: ComponentType<ComponentProps<typeof ContextMenu.Root>>;
+  trigger?: ComponentType<ComponentProps<typeof ContextMenu.Trigger>>;
   children?: ReactNode;
 }
 

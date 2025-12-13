@@ -1,6 +1,6 @@
 {
   "name": "radix-cm",
-  "version": "1.1.0",
+  "version": "1.1.1",
   "description": "Efficient Radix UI context menus anywhere (even canvas) without the boilerplate",
   "type": "module",
   "main": "dist/index.js",
